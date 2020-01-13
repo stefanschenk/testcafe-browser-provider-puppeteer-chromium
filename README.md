@@ -1,5 +1,5 @@
 # testcafe-browser-provider-puppeteer-chromium
-[![Build Status](https://travis-ci.org/stefanschenk/testcafe-browser-provider-puppeteer-chromium.svg)](https://travis-ci.org/stefanschenk/testcafe-browser-provider-puppeteer-chromium)
+![](https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium/workflows/Node%20CI/badge.svg)
 
 This is the **puppeteer-chromium** browser provider plugin for [TestCafe](http://devexpress.github.io/testcafe).
 

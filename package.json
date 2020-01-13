@@ -1,0 +1,44 @@
+{
+  "name": "testcafe-browser-provider-puppeteer-chromium",
+  "version": "0.1.0",
+  "description": "puppeteer-chromium TestCafe browser provider plugin.",
+  "repository": "https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium",
+  "homepage": "https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium",
+  "author": {
+    "name": "Stefan Schenk",
+    "email": "stefan@schenkweb.nl"
+  },
+  "main": "lib/index",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "gulp build",
+    "test": "gulp test",
+    "publish-please": "publish-please"
+  },
+  "keywords": [
+    "testcafe",
+    "browser provider",
+    "plugin"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime": "^7.8.0",
+    "prettier": "^1.19.1",
+    "puppeteer": "^1.19.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.0",
+    "@babel/plugin-transform-runtime": "^7.8.0",
+    "@babel/preset-env": "^7.8.2",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-eslint": "^6.0.0",
+    "gulp-mocha": "^7.0.2",
+    "publish-please": "^5.5.1"
+  }
+}

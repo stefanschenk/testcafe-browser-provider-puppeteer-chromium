@@ -42,13 +42,11 @@
     "space-infix-ops": "error",
     "space-unary-ops": ["error", { "words": true, "nonwords": false }],
     "yoda": ["error", "never"],
-    "brace-style": ["error", "stroustrup", { "allowSingleLine": false }],
+    "brace-style": ["error"],
     "eol-last": "error",
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "key-spacing": ["error", { "align": "value" }],
     "max-nested-callbacks": ["error", 3],
     "new-parens": "error",
-    "newline-after-var": ["error", "always"],
     "no-lonely-if": "error",
     "no-multiple-empty-lines": ["error", { "max": 2 }],
     "no-nested-ternary": "error",
@@ -63,7 +61,7 @@
     "no-path-concat": "error",
     "no-undefined": "error",
     "strict": "off",
-    "curly": ["error", "multi-or-nest"],
+    "curly": ["error", "all"],
     "dot-notation": "off",
     "no-else-return": "error",
     "one-var": ["error", "never"],
@@ -91,6 +89,7 @@
     "handle-callback-err": "off"
   },
   "env": {
+    "browser": true,
     "node": true
   }
 }

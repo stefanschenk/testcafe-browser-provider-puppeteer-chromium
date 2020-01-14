@@ -1,6 +1,6 @@
 {
   "name": "testcafe-browser-provider-puppeteer-chromium",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "puppeteer-chromium TestCafe browser provider plugin.",
   "repository": "https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium",
   "homepage": "https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium",

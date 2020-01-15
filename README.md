@@ -57,3 +57,5 @@ testCafe
 ```
 
 ## Author
+
+Stefan Schenk

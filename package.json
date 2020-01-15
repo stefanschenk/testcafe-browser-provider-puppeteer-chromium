@@ -14,13 +14,15 @@
   ],
   "scripts": {
     "build": "gulp build",
-    "test": "gulp test",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "publish-please": "publish-please"
   },
   "keywords": [
     "testcafe",
     "browser provider",
-    "plugin"
+    "plugin",
+    "puppeteer",
+    "chromium"
   ],
   "license": "MIT",
   "dependencies": {
@@ -39,7 +41,6 @@
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
-    "gulp-mocha": "^7.0.2",
     "publish-please": "^5.5.1"
   }
 }

@@ -24,8 +24,11 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish --tag ${GITHUB_REF#"refs/tags/"}
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+      - name: Publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

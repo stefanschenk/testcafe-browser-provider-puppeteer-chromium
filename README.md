@@ -27,19 +27,13 @@ npm install --save-dev testcafe-browser-provider-puppeteer-chromium@chrome-77
 | version | Tag       | Chrome version | Chromium revision |
 | ------- | --------- | :------------: | :---------------: |
 | 1.1.0   | chrome-78 |       78       |      r686378      |
-| 1.0.1   | chrome-77 |       77       |      r674921      |
+| 1.0.2   | chrome-77 |       77       |      r674921      |
 
 _info: not all chrome tags are supported at this moment_
 
 ## Puppeteer
 
 Puppeteer is installed with this provider. You don't need to install puppeteer yourself within your project.
-
-## Install
-
-```
-npm install testcafe-browser-provider-puppeteer-chromium
-```
 
 ## Usage
 

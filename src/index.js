@@ -8,6 +8,30 @@ function getScreenSize() {
   return { width: screen.availWidth, height: screen.availHeight };
 }
 
+/**
+ * Combine two option objects.
+ * When spreading two objects and combining them, array values are overwritten
+ * by the latter, but we want to combine the args array.
+ *
+ * The default launch options always has an (empty) args array, but check
+ * if the passed options also have one and combine the two arrays
+ *
+ * @param {*} defaultLaunchOptions
+ * @param {*} launchOptionsFromConfig
+ */
+function combineLaunchOptions(defaultLaunchOptions, launchOptionsFromConfig) {
+  const launchOptions = { ...defaultLaunchOptions, ...launchOptionsFromConfig };
+
+  if (launchOptionsFromConfig.args === null || launchOptionsFromConfig.args === undefined) {
+    launchOptions.args = defaultLaunchOptions.args;
+  } else {
+    const chromiumArgs = [...defaultLaunchOptions.args, ...launchOptionsFromConfig.args];
+    launchOptions.args = chromiumArgs;
+  }
+
+  return launchOptions;
+}
+
 export default {
   browser: null,
   pages: {},
@@ -29,16 +53,16 @@ export default {
    */
   async openBrowser(id, pageUrl, config) {
     //  Default launch options, values can be overwritten or add by submitting a .chromium.js file
-    //  disable-infobars does not work on chrome 77 and later, therefore the option '--enable-automation' is ignored
-    //  and '--no-default-browser-check' is added to the args.
     const defaultLaunchOptions = {
-      args: ['--disable-infobars', '--no-default-browser-check'],
+      args: ['--disable-infobars'],
       defaultViewport: null,
       headless: false,
-      ignoreDefaultArgs: ['--enable-automation'],
+      ignoreDefaultArgs: [],
       timeout: 30000,
     };
     let launchOptions = {};
+    let appMode = false;
+    let disableInfoBars = false;
 
     //  Launch the browser if not yet launched
     if (!this.browser) {
@@ -47,9 +71,35 @@ export default {
       } else {
         try {
           const configPath = resolve(config || '.');
-          const launchOptionsFromConfig = require(configPath).config.chromium;
+          const browserConfiguration = require(configPath).config;
+          const launchOptionsFromConfig = browserConfiguration.chromium;
 
-          launchOptions = { ...defaultLaunchOptions, ...launchOptionsFromConfig };
+          launchOptions = combineLaunchOptions(defaultLaunchOptions, launchOptionsFromConfig);
+
+          //  Read the other configuration options
+          if (browserConfiguration.appMode !== undefined && browserConfiguration.appMode !== null) {
+            appMode = browserConfiguration.appMode;
+          }
+          if (
+            browserConfiguration.disableInfoBars !== undefined &&
+            browserConfiguration.disableInfoBars !== null
+          ) {
+            disableInfoBars = browserConfiguration.disableInfoBars;
+          }
+
+          //  Open url in Chromium application mode (set headless mode to false)
+          if (appMode) {
+            launchOptions.args.push(`--app=${pageUrl}`);
+            launchOptions.headless = false;
+          }
+
+          //  disable-infobars does not work on chrome 77 and later, therefore the option '--enable-automation' is ignored
+          //  and '--no-default-browser-check' is added to the args when you set the option disableInfoBars in the configuration
+          //  [](https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md#--enable-automation)
+          if (disableInfoBars) {
+            launchOptions.args.push('--no-default-browser-check');
+            launchOptions.ignoreDefaultArgs.push('--enable-automation');
+          }
         } catch (err) {
           throw new Error('Error reading the launch options from the config file!' + err);
         }
@@ -62,13 +112,21 @@ export default {
     const pages = await this.browser.pages();
     const page = pages[0];
 
-    await page.goto(pageUrl);
+    //  If the browser is started in application mode, the pageUrl is already opened
+    //  so this step can then be skipped
+    if (!appMode) {
+      await page.goto(pageUrl);
+    }
 
     //  Wait until the browser is ready before continuing
-    this.waitForConnectionReady(id);
+    await this.waitForConnectionReady(id);
 
-    //  Maximize the browser window
-    this.maximizeWindow(id);
+    //  Maximize the browser window if headless browser is false
+    if (!launchOptions.headless) {
+      await this.maximizeWindow(id);
+    }
+
+    this.screenSizes[id] = await this.runInitScript(id, getScreenSize.toString());
 
     //  Save the opened page for further actions
     this.pages[id] = page;
@@ -90,14 +148,8 @@ export default {
     return;
   },
 
-  // Extra methods
   async maximizeWindow(id) {
     await browserTools.maximize(id);
-
-    this.screenSizes[id] = await this.runInitScript(id, getScreenSize.toString());
-    this.screenSizes[id].height = Math.ceil(this.screenSizes[id].height * 0.927);
-
-    await this.pages[id].setViewport(this.screenSizes[id]);
   },
 
   async canResizeWindowToDimensions(id, width, height) {

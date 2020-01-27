@@ -4,6 +4,12 @@
 
 This is the **puppeteer-chromium** browser provider plugin for [TestCafe](http://devexpress.github.io/testcafe).
 
+It downloads Chromium with a fixed revision to your local node_modules folder, which is used by TestCafe if you use
+the browser `puppeteer-chromium` in you cli or api command.
+
+This provider starts the browser non-headless and maximized by default. If you want to to run this browser headless you
+can overwrite the default launch options by using a chromium configuration file (see further down).
+
 # Getting started
 
 ## Installation
@@ -27,7 +33,7 @@ npm install --save-dev testcafe-browser-provider-puppeteer-chromium@chrome-77
 | version | Tag       | Chrome version | Chromium revision |
 | ------- | --------- | :------------: | :---------------: |
 | 1.1.0   | chrome-78 |       78       |      r686378      |
-| 1.0.2   | chrome-77 |       77       |      r674921      |
+| 1.0.3   | chrome-77 |       77       |      r674921      |
 
 _info: not all chrome tags are supported at this moment_
 
@@ -59,17 +65,19 @@ You can pass a chromium configuration file to the provider to override the defau
 This configuration file can be named however you would like, but my suggestion would be `.chromium.js`.
 The configuration file can be placed in the root folder or subfolder of your project.
 
-An example chromium configuration file, within the chromium object you can use all
+An example chromium configuration file, within the `chromium` object you can use all
 [Puppeteer launch options](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions).
 
 ```js
 module.exports.config = {
+  appMode: false,
   chromium: {
     args: ['--disable-infobars'],
     defaultViewport: null,
     headless: true,
     timeout: 30000,
   },
+  disableInfoBars: false,
 };
 ```
 
@@ -77,13 +85,23 @@ The default launch options are:
 
 ```js
 {
-  args: ['--disable-infobars', '--no-default-browser-check'],
+  args: ['--disable-infobars'],
   defaultViewport: null,
   headless: false,
-  ignoreDefaultArgs: ['--enable-automation'],
+  ignoreDefaultArgs: [],
   timeout: 30000,
 }
 ```
+
+The new configuration options outside the chromium object are: `appMode` and `disableInfoBars`.
+
+If you set `appMode` to `true`, the Chromium will be started with the `--app` argument, which is Chromium without menu or address bar.
+This application mode cannot be used together with headless mode, so headless is set to `false` when this option is set.
+
+If you set `disableInfoBars` to `true`, then the infobar 'chrome is controlled by automated software' will not be shown.
+Since v76, the argument `--disable-infobars` does not work anymore, but there is a workaround by disabling the default
+argument `--enable-automation`. Disabled this toggle has more consequences, see the following link:
+[](https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md#--enable-automation).
 
 #### Passing the configuration file to the browser provider
 

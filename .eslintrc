@@ -59,7 +59,6 @@
     "space-before-blocks": ["error", "always"],
     "prefer-const": "error",
     "no-path-concat": "error",
-    "no-undefined": "error",
     "strict": "off",
     "curly": ["error", "all"],
     "dot-notation": "off",

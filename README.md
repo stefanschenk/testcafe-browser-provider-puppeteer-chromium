@@ -33,7 +33,7 @@ npm install --save-dev testcafe-browser-provider-puppeteer-chromium@chrome-77
 | version | Tag       | Chrome version | Chromium revision |
 | ------- | --------- | :------------: | :---------------: |
 | 1.1.0   | chrome-78 |       78       |      r686378      |
-| 1.0.3   | chrome-77 |       77       |      r674921      |
+| 1.0.4   | chrome-77 |       77       |      r674921      |
 
 _info: not all chrome tags are supported at this moment_
 
@@ -121,6 +121,26 @@ testCafe
   .browsers('puppeteer-chromium:.chromium.js')
   .run();
 ```
+
+## Helpers
+
+You can use helper functions from the provider in your test files. Use ES6 import statement to access them.
+
+```
+import { hoverElement } from 'testcafe-browser-provider-puppeteer-chromium';
+```
+
+### hoverElement
+
+Hover the mousecursor over an element, providing a css selector string.
+
+```
+async function hoverElement (selector)
+```
+
+| Parameter | Type   | Description                                                                                                                       |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| selector  | String | A CSS Selector to search for element to hover. If there are multiple elements satisfying the selector, the first will be hovered. |
 
 ## Author
 

@@ -3,6 +3,7 @@ import * as path from 'path';
 import { resolve } from 'path';
 import puppeteer from 'puppeteer';
 import browserTools from 'testcafe-browser-tools';
+import testRunTracker from 'testcafe/lib/api/test-run-tracker';
 
 function getScreenSize() {
   return { width: screen.availWidth, height: screen.availHeight };
@@ -171,5 +172,12 @@ export default {
       path: screenshotPath,
       fullPage: fullPage,
     });
+  },
+
+  async hoverElement(selector) {
+    const testRun = testRunTracker.resolveContextTestRun();
+    const id = testRun.browserConnection.id;
+
+    await this.pages[id].hover(selector);
   },
 };

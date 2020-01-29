@@ -1,6 +1,6 @@
 {
   "name": "testcafe-browser-provider-puppeteer-chromium",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "puppeteer-chromium TestCafe browser provider plugin.",
   "repository": "https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium",
   "homepage": "https://github.com/stefanschenk/testcafe-browser-provider-puppeteer-chromium",
@@ -10,7 +10,8 @@
   },
   "main": "lib/index",
   "files": [
-    "lib"
+    "lib",
+    "ts-defs"
   ],
   "scripts": {
     "build": "gulp build",
@@ -41,6 +42,11 @@
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-eslint": "^6.0.0",
-    "publish-please": "^5.5.1"
-  }
+    "publish-please": "^5.5.1",
+    "testcafe": "*"
+  },
+  "peerDependencies": {
+    "testcafe": "*"
+  },
+  "types": "./ts-defs/index.d.ts"
 }

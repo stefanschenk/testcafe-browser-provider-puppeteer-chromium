@@ -33,7 +33,7 @@ npm install --save-dev testcafe-browser-provider-puppeteer-chromium@chrome-77
 | version | Tag       | Chrome version | Chromium revision |
 | ------- | --------- | :------------: | :---------------: |
 | 1.1.0   | chrome-78 |       78       |      r686378      |
-| 1.0.4   | chrome-77 |       77       |      r674921      |
+| 1.0.5   | chrome-77 |       77       |      r674921      |
 
 _info: not all chrome tags are supported at this moment_
 
@@ -145,3 +145,9 @@ async function hoverElement (selector)
 ## Author
 
 Stefan Schenk
+
+## Update history
+
+| Version | Description                                                                                       |
+| ------- | ------------------------------------------------------------------------------------------------- |
+| 1.0.5   | Added the possibility to launch multiple browsers to enable support for concurrent test execution |

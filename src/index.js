@@ -34,12 +34,12 @@ function combineLaunchOptions(defaultLaunchOptions, launchOptionsFromConfig) {
 }
 
 export default {
-  browser: null,
+  browsers: {},
   pages: {},
   screenSizes: {},
 
   // Multiple browsers support
-  isMultiBrowser: false,
+  isMultiBrowser: true,
 
   /**
    * Required. Method to open the browser.
@@ -62,11 +62,13 @@ export default {
       timeout: 30000,
     };
     let launchOptions = {};
+
     let appMode = false;
+    let browser = this.browsers[id];
     let disableInfoBars = false;
 
     //  Launch the browser if not yet launched
-    if (!this.browser) {
+    if (!browser) {
       if (!config) {
         launchOptions = defaultLaunchOptions;
       } else {
@@ -106,11 +108,11 @@ export default {
         }
       }
 
-      this.browser = await puppeteer.launch(launchOptions);
+      browser = await puppeteer.launch(launchOptions);
     }
 
     //  Open the TestCafe proxy index page
-    const pages = await this.browser.pages();
+    const pages = await browser.pages();
     const page = pages[0];
 
     //  If the browser is started in application mode, the pageUrl is already opened
@@ -129,6 +131,8 @@ export default {
 
     this.screenSizes[id] = await this.runInitScript(id, getScreenSize.toString());
 
+    //  Save the launched browser for further actions
+    this.browsers[id] = browser;
     //  Save the opened page for further actions
     this.pages[id] = page;
   },
@@ -137,7 +141,8 @@ export default {
     await this.pages[id].close();
     delete this.pages[id];
 
-    await this.browser.close();
+    await this.browsers[id].close();
+    delete this.browsers[id];
   },
 
   // Optional initialization and cleanup methods

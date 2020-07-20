@@ -42,6 +42,21 @@ _info: not all chrome tags are supported at this moment_
 
 Puppeteer is installed with this provider. You don't need to install puppeteer yourself within your project.
 
+## Chromium
+
+When Puppeteer is installed, the post-install script of puppeteer will download and install a certain version of Chromium.
+This version will be downloaded from google servers. If you would like to download the Chromium revision from a repository of your own
+you can set the `PUPPETEER_DOWNLOAD_HOST` environment variable.
+
+You can always manually download a Chromium revision from google and upload to your repository.
+An example uri where to find the linux x64 binary for a chromium revision is;
+
+```
+https://storage.googleapis.com/chromium-browser-snapshots/Linux_x64/%CHROMIUM_REVISION%/chrome-linux.zip
+```
+
+`%CHROMIUM_REVISION%` is the revision _without_ the preceding `r`, eg. `756035`
+
 ## Usage
 
 When you run tests from the command line, use the provider name when specifying browsers:

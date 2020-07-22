@@ -166,5 +166,6 @@ Stefan Schenk
 
 | Version | Description                                                                                       |
 | ------- | ------------------------------------------------------------------------------------------------- |
+| 1.6.1   | Downgrade testcafe-browser-tools due to issues with concurrency and quarantine mode               |
 | 1.6.0   | Puppeteer for Chromium v83                                                                        |
 | 1.0.5   | Added the possibility to launch multiple browsers to enable support for concurrent test execution |

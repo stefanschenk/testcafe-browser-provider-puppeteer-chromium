@@ -32,7 +32,7 @@ npm install --save-dev testcafe-browser-provider-puppeteer-chromium@chrome-77
 
 | version | Tag       | Chrome version | Chromium revision |
 | ------- | --------- | :------------: | :---------------: |
-| 1.6.0   | chrome-83 |       83       |      r756035      |
+| 1.4.0   | chrome-81 |       81       |      r737027      |
 | 1.1.0   | chrome-78 |       78       |      r686378      |
 | 1.0.5   | chrome-77 |       77       |      r674921      |
 
@@ -166,6 +166,5 @@ Stefan Schenk
 
 | Version | Description                                                                                       |
 | ------- | ------------------------------------------------------------------------------------------------- |
-| 1.6.1   | Downgrade testcafe-browser-tools due to issues with concurrency and quarantine mode               |
-| 1.6.0   | Puppeteer for Chromium v83                                                                        |
+| 1.4.0   | Puppeteer for Chromium v81                                                                        |
 | 1.0.5   | Added the possibility to launch multiple browsers to enable support for concurrent test execution |
